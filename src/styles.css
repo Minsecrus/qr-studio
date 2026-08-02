@@ -27,6 +27,24 @@ input {
   font: inherit;
 }
 
+.toolbar-scroll {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.toolbar-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.qr-preview-stage {
+  container-type: size;
+}
+
+.qr-preview-canvas {
+  width: min(100cqw, 100cqh, 820px);
+  height: min(100cqw, 100cqh, 820px);
+}
+
 input[type="range"] {
   height: 2px;
   appearance: none;

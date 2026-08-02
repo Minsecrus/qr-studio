@@ -145,7 +145,7 @@ function IconButton({ active, children, title, onClick }) {
       title={title}
       aria-label={title}
       onClick={onClick}
-      className={`grid h-10 w-10 cursor-pointer place-items-center rounded-md transition ${
+      className={`grid h-10 w-10 shrink-0 cursor-pointer place-items-center rounded-md transition ${
         active ? "bg-black text-white" : "text-black hover:bg-black/5"
       }`}
     >
@@ -158,7 +158,7 @@ function IconRadio({ checked, children, name, title, value, onChange }) {
   return (
     <label
       title={title}
-      className={`grid h-10 w-10 cursor-pointer place-items-center rounded-md transition ${
+      className={`grid h-10 w-10 shrink-0 cursor-pointer place-items-center rounded-md transition ${
         checked ? "bg-black text-white" : "text-black hover:bg-black/5"
       }`}
     >
@@ -180,7 +180,7 @@ function IconCheckbox({ checked, children, title, onChange }) {
   return (
     <label
       title={title}
-      className={`grid h-10 w-10 cursor-pointer place-items-center rounded-md transition ${
+      className={`grid h-10 w-10 shrink-0 cursor-pointer place-items-center rounded-md transition ${
         checked ? "bg-black text-white" : "text-black hover:bg-black/5"
       }`}
     >
@@ -377,7 +377,7 @@ function App() {
 
   return (
     <main className="grid h-dvh overflow-hidden grid-cols-[88px_minmax(0,1fr)] bg-white text-black max-md:grid-cols-1 max-md:grid-rows-[72px_minmax(0,1fr)]">
-      <aside className="flex min-h-0 flex-col items-center gap-4 border-r border-black/10 px-4 py-5 max-md:flex-row max-md:border-b max-md:border-r-0 max-md:px-4 max-md:py-3">
+      <aside className="flex min-h-0 flex-col items-center gap-4 border-r border-black/10 px-4 py-5 max-md:grid max-md:grid-cols-[44px_minmax(0,1fr)_88px] max-md:overflow-hidden max-md:border-b max-md:border-r-0 max-md:px-4 max-md:py-3">
         <button
           type="button"
           title="项目信息"
@@ -388,7 +388,7 @@ function App() {
           <ScanQrCode size={22} />
         </button>
 
-        <div className="flex flex-col gap-2 max-md:flex-row">
+        <div className="toolbar-scroll flex flex-col gap-2 max-md:min-w-0 max-md:flex-row max-md:overflow-x-auto max-md:overscroll-x-contain">
           <IconButton
             title={settings.backgroundUrl ? "清除背景" : "上传背景"}
             active={Boolean(settings.backgroundUrl)}
@@ -482,7 +482,7 @@ function App() {
           </IconCheckbox>
         </div>
 
-        <div className="mt-auto flex flex-col gap-2 max-md:ml-auto max-md:mt-0 max-md:flex-row">
+        <div className="mt-auto flex flex-col gap-2 max-md:mt-0 max-md:flex-row">
           <IconButton title="重置为默认状态" onClick={() => setSettings(defaultSettings)}>
             <RefreshCcw size={19} />
           </IconButton>
@@ -539,15 +539,17 @@ function App() {
         </div>
 
         <div className="grid min-h-0 place-items-center overflow-hidden p-6">
-          <div className="grid h-full max-h-full w-full max-w-[820px] grid-rows-[auto_minmax(0,1fr)] gap-3">
+          <div className="grid h-full min-h-0 w-full max-w-[820px] grid-rows-[auto_minmax(0,1fr)] gap-3">
             <div className="flex items-center justify-between text-xs text-black/50">
               <span>{status}</span>
               <span>{settings.size} PNG</span>
             </div>
-            <canvas
-              ref={canvasRef}
-              className="aspect-square h-full max-h-full w-full max-w-full justify-self-center rounded-md bg-black/[.03] object-contain shadow-[0_24px_80px_rgba(0,0,0,.14)]"
-            />
+            <div className="qr-preview-stage grid min-h-0 min-w-0 place-items-center">
+              <canvas
+                ref={canvasRef}
+                className="qr-preview-canvas block aspect-square rounded-md bg-black/[.03] shadow-[0_24px_80px_rgba(0,0,0,.14)]"
+              />
+            </div>
           </div>
         </div>
       </section>
